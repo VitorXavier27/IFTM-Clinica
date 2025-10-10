@@ -42,21 +42,15 @@ public class ExameControle {
 		List<ExameDTO> result = exameService.findAll();
 		return result;
 	}
+		
 	
 	@CrossOrigin(origins = "*" , allowedHeaders = "*")
 	@PostMapping
-	public Exame cadastroExame(@RequestBody Exame cadastroExame) {
-		Exame exameSalvo = exameService.salvar(cadastroExame);
-		return exameSalvo;
-	}
-	
-	@CrossOrigin(origins = "*" , allowedHeaders = "*")
-	@PostMapping("/Exams")
 	public ResponseEntity<?> criarExame(@RequestBody ExameDTO exameDTO){
 		Optional<Paciente> pacienteOptional = pacienteRepository.findById(exameDTO.getPacienteId());
 		
 		if(!pacienteOptional.isPresent()) {
-			return ResponseEntity.badRequest().body("Paciente com ID" + exameDTO.getPacienteId()+"Nao Encontrado");
+			return ResponseEntity.badRequest().body("Paciente com ID " + exameDTO.getPacienteId()+" Nao Encontrado");
 		}
 		
 		Paciente pacienteEncontrado = pacienteOptional.get();

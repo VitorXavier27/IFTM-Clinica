@@ -22,8 +22,8 @@ public class Exame {
 	private LocalDate data_Exame;
 	private String resultado_Exame;
 	private String status_Exame;
-	@JoinColumn(name = "id_pacientes",referencedColumnName = "id_Paciente")
 	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_pacientes",referencedColumnName = "id_Paciente")
 	private Paciente paciente; 
 	
 	public Exame() {
@@ -90,6 +90,7 @@ public class Exame {
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
 	}
+	
 	
 	
 

@@ -17,15 +17,17 @@ public class Guia {
 	private Long id_Guia;
 	private LocalDate data_Emissao_Guia;
 	private String convenio_Guia;
+	private String numero_Guia;
 	
 	public Guia() {
 		
 	}
 
-	public Guia(Long id_Guia, LocalDate data_Emissao_Guia, String convenio_Guia) {
+	public Guia(Long id_Guia, LocalDate data_Emissao_Guia, String convenio_Guia , String numero_Guia) {
 		this.id_Guia = id_Guia;
 		this.data_Emissao_Guia = data_Emissao_Guia;
 		this.convenio_Guia = convenio_Guia;
+		this.numero_Guia = numero_Guia;
 	}
 
 	public Long getId_Guia() {
@@ -50,6 +52,14 @@ public class Guia {
 
 	public void setConvenio_Guia(String convenio_Guia) {
 		this.convenio_Guia = convenio_Guia;
+	}
+
+	public String getNumero_Guia() {
+		return numero_Guia;
+	}
+
+	public void setNumero_Guia(String numero_Guia) {
+		this.numero_Guia = numero_Guia;
 	}
 	
 	

@@ -1,6 +1,7 @@
 package com.ClinicaMedica.IFTM.entities;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.annotations.Fetch;
@@ -28,7 +29,10 @@ public class Paciente {
 	private String email_Paciente;
 	@OneToMany(mappedBy = "paciente")
 	@Fetch (FetchMode.JOIN)
-	private List<Exame> exames;
+	private List<Exame> exames = new ArrayList<>();
+	@OneToMany
+	@Fetch (FetchMode.JOIN)
+	private List<Laudo> laudos = new ArrayList<>();
 	
 	public Paciente() {
 		
@@ -100,6 +104,14 @@ public class Paciente {
 
 	public void setEmail_Paciente(String email_Paciente) {
 		this.email_Paciente = email_Paciente;
+	}
+
+	public List<Exame> getExames() {
+		return exames;
+	}
+
+	public List<Laudo> getLaudos() {
+		return laudos;
 	}
 
 
