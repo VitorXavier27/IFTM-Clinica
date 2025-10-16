@@ -1,0 +1,12 @@
+### GET request to example server
+GET http://localhost:8080/paciente
+
+###
+
+POST http://localhost:8080/auth/register
+
+{
+ "name":
+}
+
+###

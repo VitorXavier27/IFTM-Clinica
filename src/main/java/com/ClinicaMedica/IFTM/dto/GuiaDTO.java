@@ -1,15 +1,17 @@
 package com.ClinicaMedica.IFTM.dto;
 
-import java.time.LocalDate;
+import java.time.Instant;
 
 import com.ClinicaMedica.IFTM.entities.Guia;
 
 public class GuiaDTO {
 
 	private Long id_Guia;
-	private LocalDate data_Emissao_Guia;
+	private Instant data_Emissao_Guia;
 	private String convenio_Guia;
 	private String numero_Guia;
+	private String nome_Paciente;
+	private Long pacienteId;
 	
 	public GuiaDTO () {
 		
@@ -20,13 +22,14 @@ public class GuiaDTO {
 		data_Emissao_Guia = entity.getData_Emissao_Guia();
 		convenio_Guia = entity.getConvenio_Guia();
 		numero_Guia = entity.getNumero_Guia();
+		nome_Paciente = entity.getNome_paciente();
 	}
 
 	public Long getId_Guia() {
 		return id_Guia;
 	}
 
-	public LocalDate getData_Emissao_Guia() {
+	public Instant getData_Emissao_Guia() {
 		return data_Emissao_Guia;
 	}
 
@@ -36,6 +39,14 @@ public class GuiaDTO {
 
 	public String getNumero_Guia() {
 		return numero_Guia;
+	}
+
+	public String getNome_Paciente() {
+		return nome_Paciente;
+	}
+
+	public Long getPacienteId() {
+		return pacienteId;
 	}
 	
 	

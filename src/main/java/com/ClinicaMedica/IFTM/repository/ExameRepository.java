@@ -6,4 +6,5 @@ import com.ClinicaMedica.IFTM.entities.Exame;
 
 public interface ExameRepository extends JpaRepository<Exame, Long> {
 
+
 }

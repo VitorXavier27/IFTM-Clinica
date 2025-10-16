@@ -30,9 +30,13 @@ public class Paciente {
 	@OneToMany(mappedBy = "paciente")
 	@Fetch (FetchMode.JOIN)
 	private List<Exame> exames = new ArrayList<>();
-	@OneToMany
+	@OneToMany(mappedBy = "paciente")
 	@Fetch (FetchMode.JOIN)
 	private List<Laudo> laudos = new ArrayList<>();
+	
+	@OneToMany
+	@Fetch (FetchMode.JOIN)
+	private List<Guia> guias = new ArrayList<>();
 	
 	public Paciente() {
 		
@@ -112,6 +116,10 @@ public class Paciente {
 
 	public List<Laudo> getLaudos() {
 		return laudos;
+	}
+
+	public List<Guia> getGuias() {
+		return guias;
 	}
 
 
