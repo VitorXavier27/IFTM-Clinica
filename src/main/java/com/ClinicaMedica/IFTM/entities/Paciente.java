@@ -2,17 +2,13 @@ package com.ClinicaMedica.IFTM.entities;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import jakarta.persistence.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 
 @Entity
 @Table (name = "tb_paciente")
@@ -37,6 +33,12 @@ public class Paciente {
 	@OneToMany
 	@Fetch (FetchMode.JOIN)
 	private List<Guia> guias = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "tb_paciente_medico",
+                joinColumns = @JoinColumn(name = "paciente_id"),
+                inverseJoinColumns = @JoinColumn(name = "medico_id"))
+    private Set<Medicos>medics = new HashSet<>();
 	
 	public Paciente() {
 		
@@ -122,7 +124,7 @@ public class Paciente {
 		return guias;
 	}
 
-
-	
-	
+    public Set<Medicos> getMedics() {
+        return medics;
+    }
 }

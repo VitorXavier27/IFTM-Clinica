@@ -1,10 +1,9 @@
 package com.ClinicaMedica.IFTM.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_medicos")
@@ -17,7 +16,9 @@ public class Medicos {
 	private String crm_Medico;
 	private String especialidade_Medico;
 	private String telefone_Medico;
-	
+
+    @ManyToMany(mappedBy = "medics")
+    private Set<Paciente> pacientes = new HashSet<>();
 	
 	public Medicos() {
 		
@@ -83,6 +84,8 @@ public class Medicos {
 	public void setTelefone_Medico(String telefone_Medico) {
 		this.telefone_Medico = telefone_Medico;
 	}
-	
-	
+
+    public Set<Paciente> getPacientes() {
+        return pacientes;
+    }
 }

@@ -1,21 +1,20 @@
 package com.ClinicaMedica.IFTM.controladores;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 
 import com.ClinicaMedica.IFTM.dto.PacienteDTO;
 import com.ClinicaMedica.IFTM.entities.Paciente;
 import com.ClinicaMedica.IFTM.service.PacienteService;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 
 @RestController
@@ -29,10 +28,11 @@ public class PacienteControle {
 	
 	@CrossOrigin(origins = "*" , allowedHeaders = "*")
 	@GetMapping
-	public List<PacienteDTO> findAll(){
-		List<PacienteDTO> result = pacienteService.findAll();
-		return result;
-	}
+    public ResponseEntity<Page<PacienteDTO>> findAll(@PageableDefault(size = 10) Pageable pageable){
+        Page<PacienteDTO> dto = pacienteService.findAll(pageable);
+        return ResponseEntity.ok(dto);
+    }
+
 	
 	@CrossOrigin(origins = "*" , allowedHeaders = "*")
 	@GetMapping(value = "/{id}")
@@ -43,16 +43,23 @@ public class PacienteControle {
 	
 	@CrossOrigin(origins = "*" , allowedHeaders = "*")
 	@PostMapping
-	public Paciente cadastroPaciente(@RequestBody Paciente pacienteParaCadastrar) {
-		Paciente pacienteSalvo = pacienteService.salvar(pacienteParaCadastrar);
-		return pacienteSalvo;
-	}
-	
+    public ResponseEntity<PacienteDTO> insert(@RequestBody PacienteDTO dto){
+        dto = pacienteService.insert(dto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(dto.getIdPaciente()).toUri();
+        return ResponseEntity.created(uri).body(dto);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<PacienteDTO>update(@PathVariable Long id, @RequestBody PacienteDTO dto){
+        dto = pacienteService.update(id, dto);
+        return ResponseEntity.ok(dto);
+    }
+
 	@CrossOrigin(origins = "*" , allowedHeaders = "*")
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Paciente> deletarPaciente(@PathVariable  Long id) {
-		pacienteService.deletarPorId(id);
-		
+	public ResponseEntity<Void> deletarPaciente(@PathVariable  Long id) {
+		pacienteService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 }

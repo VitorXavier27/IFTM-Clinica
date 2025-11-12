@@ -21,7 +21,7 @@ public class Guia {
 	private Instant data_Emissao_Guia;
 	private String convenio_Guia;
 	private String numero_Guia;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn (name = "id_pacientes" , referencedColumnName = "id_Paciente")
 	private Paciente paciente;
