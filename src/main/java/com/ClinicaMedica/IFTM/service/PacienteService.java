@@ -46,12 +46,12 @@ public class PacienteService {
     public PacienteDTO insert(PacienteDTO dto){
         Paciente entity = new Paciente();
 
-        entity.setNome_Paciente(dto.getNomePaciente());
-        entity.setCpf_Paciente(dto.getCpfPaciente());
-        entity.setData_Nascimento_Paciente(dto.getDataNascimentoPaciente());
-        entity.setEndereco_Paciente(dto.getEnderecoPaciente());
-        entity.setTelefone_Paciente(dto.getTelefonePaciente());
-        entity.setEmail_Paciente(dto.getEmailPaciente());
+        entity.setNome_Paciente(dto.getNome_Paciente());
+        entity.setCpf_Paciente(dto.getCpf_Paciente());
+        entity.setData_Nascimento_Paciente(dto.getData_Nascimento_Paciente());
+        entity.setEndereco_Paciente(dto.getEndereco_Paciente());
+        entity.setTelefone_Paciente(dto.getTelefone_Paciente());
+        entity.setEmail_Paciente(dto.getEmail_Paciente());
 
         entity = pacienteRepository.save(entity);
 
@@ -62,12 +62,12 @@ public class PacienteService {
     public PacienteDTO update(Long id, PacienteDTO dto) {
         try{
             Paciente entity = pacienteRepository.getReferenceById(id);
-            entity.setNome_Paciente(dto.getNomePaciente());
-            entity.setCpf_Paciente(dto.getCpfPaciente());
-            entity.setData_Nascimento_Paciente(dto.getDataNascimentoPaciente());
-            entity.setEndereco_Paciente(dto.getEnderecoPaciente());
-            entity.setTelefone_Paciente(dto.getTelefonePaciente());
-            entity.setEmail_Paciente(dto.getEmailPaciente());
+            entity.setNome_Paciente(dto.getNome_Paciente());
+            entity.setCpf_Paciente(dto.getCpf_Paciente());
+            entity.setData_Nascimento_Paciente(dto.getData_Nascimento_Paciente());
+            entity.setEndereco_Paciente(dto.getEndereco_Paciente());
+            entity.setTelefone_Paciente(dto.getTelefone_Paciente());
+            entity.setEmail_Paciente(dto.getEmail_Paciente());
 
             entity = pacienteRepository.save(entity);
             return new PacienteDTO(entity);
@@ -85,6 +85,11 @@ public class PacienteService {
         }catch (DataIntegrityViolationException e){
             throw new DatabaseException("Falha ao deletar Paciente");
         }
+    }
+
+    @Transactional(readOnly = true)
+    public long contarTotalDePaciente(){
+        return pacienteRepository.count();
     }
 
 }

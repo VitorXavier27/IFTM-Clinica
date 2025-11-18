@@ -33,7 +33,7 @@ public class GuiaService {
         return new GuiaDTO(result);
     }
 
-    @Transactional
+    /*@Transactional
     public GuiaDTO cadastrarGuia(GuiaDTO dto){
         Guia entity = new Guia();
 
@@ -43,10 +43,10 @@ public class GuiaService {
 
         entity = guiaRepository.save(entity);
         return new GuiaDTO(entity);
-    }
+    }*/
 
     @Transactional
-    public GuiaDTO atualizarGuia(Long id, GuiaDTO dto){
+   /* public GuiaDTO atualizarGuia(Long id, GuiaDTO dto){
         try{
             Guia entity = guiaRepository.getReferenceById(id);
             entity.setData_Emissao_Guia(dto.getData_Emissao_Guia());
@@ -57,7 +57,7 @@ public class GuiaService {
         }catch (EntityNotFoundException e){
             throw new ResourceNotFoundExeception("Guia Não Encontrada ou Inexistente");
         }
-    }
+    }*/
 
     public void deletarGuia(Long id) {
 

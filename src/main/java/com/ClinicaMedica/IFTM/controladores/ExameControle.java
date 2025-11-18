@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -38,10 +41,10 @@ public class ExameControle {
 	
 	@CrossOrigin(origins = "*" , allowedHeaders = "*")
 	@GetMapping
-	public List<ExameDTO> findAll(){
-		List<ExameDTO> result = exameService.findAll();
-		return result;
-	}
+    public ResponseEntity<Page<ExameDTO>> findAll(@PageableDefault(size = 10) Pageable pageable){
+        Page<ExameDTO> dto = exameService.findAll(pageable);
+        return ResponseEntity.ok(dto);
+    }
 		
 	
 	@CrossOrigin(origins = "*" , allowedHeaders = "*")
@@ -74,4 +77,11 @@ public class ExameControle {
 			
 			return ResponseEntity.noContent().build();
 	}
+
+    @CrossOrigin(origins = "*" , allowedHeaders = "*")
+    @GetMapping("/total")
+    public ResponseEntity<Long> getTotalExames(){
+        long total = exameService.contarTotaldeExame();
+        return ResponseEntity.ok(total);
+    }
 }

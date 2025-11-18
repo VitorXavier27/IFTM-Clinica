@@ -29,7 +29,8 @@ public class LaudoControle {
         return ResponseEntity.ok(dto);
     }
 
-    @GetMapping
+    @CrossOrigin(origins = "*" , allowedHeaders = "*")
+    @GetMapping("/{id}")
     public ResponseEntity<LaudoDTO> findById(@PathVariable Long id){
         LaudoDTO dto = laudoService.findById(id);
         return ResponseEntity.ok(dto);
@@ -44,6 +45,8 @@ public class LaudoControle {
         return ResponseEntity.created(uri).body(dto);
     }
 
+
+    @CrossOrigin(origins = "*" , allowedHeaders = "*")
     @PutMapping(value = "/{id}")
     public ResponseEntity<LaudoDTO> atualizarLaudo(@PathVariable Long id, @RequestBody LaudoDTO dto){
         dto = laudoService.atualizarLaudo(id, dto);

@@ -62,4 +62,11 @@ public class PacienteControle {
 		pacienteService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
+
+    @CrossOrigin(origins = "*" , allowedHeaders = "*")
+    @GetMapping("/total")
+    public ResponseEntity<Long> getTotalPacientes(){
+        long total = pacienteService.contarTotalDePaciente();
+        return ResponseEntity.ok(total);
+    }
 }

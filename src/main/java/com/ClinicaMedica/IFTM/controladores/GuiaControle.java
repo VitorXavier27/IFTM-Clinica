@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -39,10 +42,10 @@ public class GuiaControle {
 	
 	@CrossOrigin(origins = "*" , allowedHeaders = "*")
 	@GetMapping
-	public List<GuiaDTO> findAll(){
-		List<GuiaDTO> result = guiaService.findAll();
-		return result;
-	}
+	public ResponseEntity<Page<GuiaDTO>> findAll(@PageableDefault(size = 10) Pageable pageable) {
+        Page<GuiaDTO> dto = guiaService.findAll(pageable);
+        return ResponseEntity.ok(dto);
+    }
 	
 	/*@CrossOrigin(origins = "*" , allowedHeaders = "*")
 	@PostMapping
