@@ -34,18 +34,22 @@ public class Paciente {
 	@Fetch (FetchMode.JOIN)
 	private List<Guia> guias = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    /*@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tb_paciente_medico",
                 joinColumns = @JoinColumn(name = "paciente_id"),
                 inverseJoinColumns = @JoinColumn(name = "medico_id"))
-    private Set<Medicos>medics = new HashSet<>();
+    private Set<Medicos>medics = new HashSet<>();*/
+
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "id_medicos", referencedColumnName = "id_Medico")
+//    private List<Medicos> medicos = new ArrayList<>();
 	
 	public Paciente() {
 		
 	}
 
 	public Paciente(Long id_Paciente, String nome_Paciente, String cpf_Paciente, LocalDate data_Nascimento_Paciente,
-			String endereco_Paciente, String telefone_Paciente, String email_Paciente) {
+			String endereco_Paciente, String telefone_Paciente, String email_Paciente , Set<Medicos> medics) {
 		super();
 		this.id_Paciente = id_Paciente;
 		this.nome_Paciente = nome_Paciente;
@@ -54,6 +58,7 @@ public class Paciente {
 		this.endereco_Paciente = endereco_Paciente;
 		this.telefone_Paciente = telefone_Paciente;
 		this.email_Paciente = email_Paciente;
+//        this.medics = medics;
 	}
 
 	public Long getId_Paciente() {
@@ -124,7 +129,11 @@ public class Paciente {
 		return guias;
 	}
 
-    public Set<Medicos> getMedics() {
-        return medics;
-    }
+//    public Set<Medicos> getMedics() {
+//        return medics;
+//    }
+//
+//    public String getNome_medico() {
+//        return medics != null ? medics.getNome_Medico() : null;
+//    }
 }

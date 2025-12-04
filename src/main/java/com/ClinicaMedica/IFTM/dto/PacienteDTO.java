@@ -19,6 +19,7 @@ public class PacienteDTO {
     private String endereco_Paciente;
     private String telefone_Paciente;
     private String email_Paciente;
+    private String nome_Medico;
     private List<MedicosDTO> medics = new ArrayList<>();
 	
 	public PacienteDTO () {
@@ -33,7 +34,7 @@ public class PacienteDTO {
 		endereco_Paciente = entity.getEndereco_Paciente();
 		telefone_Paciente = entity.getTelefone_Paciente();
 		email_Paciente = entity.getEmail_Paciente();
-		
+//		nome_Medico = entity.getNome_medico();
 	}
 
 	public Long getIdPaciente() {
@@ -64,7 +65,11 @@ public class PacienteDTO {
 		return email_Paciente;
 	}
 
-    public List<MedicosDTO> getMedics() {
-        return medics;
-    }
+//    public List<MedicosDTO> getMedics() {
+//        return medics;
+//    }
+//
+//    public String getNome_Medico() {
+//        return nome_Medico;
+//    }
 }
