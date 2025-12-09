@@ -30,9 +30,13 @@ public class Paciente {
 	@Fetch (FetchMode.JOIN)
 	private List<Laudo> laudos = new ArrayList<>();
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch (FetchMode.JOIN)
 	private List<Guia> guias = new ArrayList<>();
+
+    @OneToMany
+    @Fetch (FetchMode.JOIN)
+    private List<Amostra> amostras = new ArrayList<>();
 
     /*@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tb_paciente_medico",
@@ -49,7 +53,7 @@ public class Paciente {
 	}
 
 	public Paciente(Long id_Paciente, String nome_Paciente, String cpf_Paciente, LocalDate data_Nascimento_Paciente,
-			String endereco_Paciente, String telefone_Paciente, String email_Paciente , Set<Medicos> medics) {
+			String endereco_Paciente, String telefone_Paciente, String email_Paciente) {
 		super();
 		this.id_Paciente = id_Paciente;
 		this.nome_Paciente = nome_Paciente;
@@ -128,6 +132,10 @@ public class Paciente {
 	public List<Guia> getGuias() {
 		return guias;
 	}
+
+    public List<Amostra> getAmostras() {
+        return amostras;
+    }
 
 //    public Set<Medicos> getMedics() {
 //        return medics;

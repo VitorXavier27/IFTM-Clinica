@@ -1,10 +1,8 @@
 package com.ClinicaMedica.IFTM.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.time.LocalDate;
 
 @Entity
 @Table (name = "tb_amostra")
@@ -15,15 +13,24 @@ public class Amostra {
 	private Long id_Amostra;
 	private String codigo_Rastreamento_Amostra;
 	private String status_Amostra;
-	
+    private LocalDate data_Coleta;
+    private StatusAmostra status;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn (name = "id_pacientes" , referencedColumnName = "id_Paciente")
+    private Paciente paciente;
+
 	public Amostra() {
 		
 	}
 
-	public Amostra(Long id_Amostra, String codigo_Rastreamento_Amostra, String status_Amostra) {
+	public Amostra(Long id_Amostra, String codigo_Rastreamento_Amostra, String status_Amostra,LocalDate data_Coleta,StatusAmostra status, Paciente paciente) {
 		this.id_Amostra = id_Amostra;
 		this.codigo_Rastreamento_Amostra = codigo_Rastreamento_Amostra;
 		this.status_Amostra = status_Amostra;
+        this.data_Coleta = data_Coleta;
+        this.status = status;
+        this.paciente = paciente;
 	}
 
 	public Long getId_Amostra() {
@@ -49,7 +56,32 @@ public class Amostra {
 	public void setStatus_Amostra(String status_Amostra) {
 		this.status_Amostra = status_Amostra;
 	}
+
+    public LocalDate getData_Coleta() {
+        return data_Coleta;
+    }
+
+    public void setData_Coleta(LocalDate data_Coleta) {
+        this.data_Coleta = data_Coleta;
+    }
+
+    public StatusAmostra getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusAmostra status) {
+        this.status = status;
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public String getNome_paciente() {
+        return paciente != null ? paciente.getNome_Paciente() : null;
+    }
 	
-	
-	
+	public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
 }
