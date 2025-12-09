@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ClinicaMedica.IFTM.dto.AmostraDTO;
 import com.ClinicaMedica.IFTM.entities.Amostra;
 import com.ClinicaMedica.IFTM.repository.AmostraRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AmostraService {
@@ -32,4 +33,9 @@ public class AmostraService {
 		}
 			amostraRepository.deleteById(id);
 	}
+
+    @Transactional(readOnly = true)
+    public long contadorDeAmostras(){
+        return amostraRepository.count();
+    }
 }

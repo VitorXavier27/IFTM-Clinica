@@ -12,7 +12,6 @@ public class Amostra {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_Amostra;
 	private String codigo_Rastreamento_Amostra;
-	private String status_Amostra;
     private LocalDate data_Coleta;
     private StatusAmostra status;
 
@@ -24,10 +23,9 @@ public class Amostra {
 		
 	}
 
-	public Amostra(Long id_Amostra, String codigo_Rastreamento_Amostra, String status_Amostra,LocalDate data_Coleta,StatusAmostra status, Paciente paciente) {
+	public Amostra(Long id_Amostra, String codigo_Rastreamento_Amostra,LocalDate data_Coleta,StatusAmostra status, Paciente paciente) {
 		this.id_Amostra = id_Amostra;
 		this.codigo_Rastreamento_Amostra = codigo_Rastreamento_Amostra;
-		this.status_Amostra = status_Amostra;
         this.data_Coleta = data_Coleta;
         this.status = status;
         this.paciente = paciente;
@@ -47,14 +45,6 @@ public class Amostra {
 
 	public void setCodigo_Rastreamento_Amostra(String codigo_Rastreamento_Amostra) {
 		this.codigo_Rastreamento_Amostra = codigo_Rastreamento_Amostra;
-	}
-
-	public String getStatus_Amostra() {
-		return status_Amostra;
-	}
-
-	public void setStatus_Amostra(String status_Amostra) {
-		this.status_Amostra = status_Amostra;
 	}
 
     public LocalDate getData_Coleta() {

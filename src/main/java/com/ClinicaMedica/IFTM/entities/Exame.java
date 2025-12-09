@@ -24,19 +24,21 @@ public class Exame {
 	private String status_Exame;
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_pacientes",referencedColumnName = "id_Paciente")
-	private Paciente paciente; 
+	private Paciente paciente;
+    private StatusExame status;
 	
 	public Exame() {
 		
 	}
 
-	public Exame(Long id_Exame, String tipo_Exame, LocalDate data_Exame, String resultado_Exame, String status_Exame,String id_Paciente,Paciente paciente) {
+	public Exame(Long id_Exame, String tipo_Exame, LocalDate data_Exame, String resultado_Exame, String status_Exame,String id_Paciente,Paciente paciente , StatusExame status) {
 		this.id_Exame = id_Exame;
 		this.tipo_Exame = tipo_Exame;
 		this.data_Exame = data_Exame;
 		this.resultado_Exame = resultado_Exame;
 		this.status_Exame = status_Exame;
 		this.paciente = paciente;
+        this.status = status;
 	}
 
 	public Long getId_Exame() {
@@ -90,14 +92,12 @@ public class Exame {
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
 	}
-	
-	
-	
 
+    public StatusExame getStatus() {
+        return status;
+    }
 
-
-	
-	
-	
-	
+    public void setStatus(StatusExame status) {
+        this.status = status;
+    }
 }

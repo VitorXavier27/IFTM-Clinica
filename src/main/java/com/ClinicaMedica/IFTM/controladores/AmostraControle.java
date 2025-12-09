@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.ClinicaMedica.IFTM.entities.Paciente;
+import com.ClinicaMedica.IFTM.entities.StatusAmostra;
 import com.ClinicaMedica.IFTM.repository.AmostraRepository;
 import com.ClinicaMedica.IFTM.repository.PacienteRepository;
 import io.swagger.v3.oas.annotations.Operation;
@@ -57,7 +58,6 @@ public class AmostraControle {
 
         Amostra novaAmostra = new Amostra();
         novaAmostra.setCodigo_Rastreamento_Amostra(amostraDTO.getCodigo_Rastreamento_Amostra());
-        novaAmostra.setStatus_Amostra(amostraDTO.getStatus_Amostra());
         novaAmostra.setData_Coleta(amostraDTO.getData_Coleta());
         novaAmostra.setStatus(amostraDTO.getStatus());
 
@@ -79,4 +79,17 @@ public class AmostraControle {
 			
 			return ResponseEntity.noContent().build();
 	}
+
+    @CrossOrigin(origins = "*" , allowedHeaders = "*")
+    @GetMapping("/status")
+    public ResponseEntity<StatusAmostra[]> getStatusDisponiveis(){
+        return ResponseEntity.ok(StatusAmostra.values());
+    }
+
+    @CrossOrigin(origins = "*" , allowedHeaders = "*")
+    @GetMapping("/total")
+    public ResponseEntity<Long> getTotalAmostras(){
+        long total = amostraService.contadorDeAmostras();
+        return ResponseEntity.ok(total);
+    }
 }

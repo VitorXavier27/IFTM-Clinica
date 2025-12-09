@@ -3,6 +3,7 @@ package com.ClinicaMedica.IFTM.controladores;
 import java.util.List;
 import java.util.Optional;
 
+import com.ClinicaMedica.IFTM.entities.StatusExame;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,14 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ClinicaMedica.IFTM.dto.ExameDTO;
 import com.ClinicaMedica.IFTM.entities.Exame;
@@ -29,7 +23,9 @@ import com.ClinicaMedica.IFTM.repository.PacienteRepository;
 import com.ClinicaMedica.IFTM.service.ExameService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5137")
+@CrossOrigin(origins = "http://localhost:5137", allowedHeaders = "*", methods = {
+        RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.PATCH, RequestMethod.OPTIONS
+})
 @RequestMapping(value = "/exame")
 @Tag(name = "Exame" , description = "Controlador para salvar e editar dados dos Exames!")
 public class ExameControle {
@@ -98,5 +94,26 @@ public class ExameControle {
     public ResponseEntity<Long> getTotalExames(){
         long total = exameService.contarTotaldeExame();
         return ResponseEntity.ok(total);
+    }
+
+    @CrossOrigin(origins = "*" , allowedHeaders = "*")
+    @GetMapping("/contar/concluidos")
+    public ResponseEntity<Long> contarExamesConcluidos(){
+        long total = exameRepository.countByStatus(StatusExame.CONCLUIDO);
+
+        return ResponseEntity.ok(total);
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*", methods = {
+            RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.PATCH, RequestMethod.OPTIONS
+    })
+    @PatchMapping("/{id}/concluir")
+    public ResponseEntity<Void> concluirExame(@PathVariable Long id){
+        Exame exame = exameRepository.findById(id).orElseThrow(() -> new RuntimeException("Exame não encontrado"));
+
+        exame.setStatus(StatusExame.CONCLUIDO);
+
+        exameRepository.save(exame);
+        return ResponseEntity.noContent().build();
     }
 }
