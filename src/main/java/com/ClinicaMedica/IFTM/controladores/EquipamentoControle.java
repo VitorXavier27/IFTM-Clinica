@@ -2,6 +2,9 @@ package com.ClinicaMedica.IFTM.controladores;
 
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,24 +21,35 @@ import com.ClinicaMedica.IFTM.service.EquipamentoService;
 
 @RestController
 @RequestMapping(value = "/equipamento")
+@Tag(name = "equipamento" , description = "Controlador para salvar e editar dados dos equipamentos!")
 public class EquipamentoControle {
 
 	@Autowired
 	private EquipamentoService equipamentoService;
 	
 	@GetMapping
+    @Operation(summary = "Busca os Equipamento salvos paginados em 10", description = "Metodo para buscar todos os Equipamentos")
+    @ApiResponse(responseCode = "200" , description = "Equipamento Buscado com sucesso")
+    @ApiResponse(responseCode = "403", description = "Usuario nao Cadastrado")
 	public List<EquipamentoDTO> findAll(){
 		List<EquipamentoDTO> result = equipamentoService.findAll();
 		return result;
 	}
 	
 	@PostMapping
+    @Operation (summary = "Fazer o Cadastro dos Equipamentos", description = "Metodo para Cadastrar Equipamentos")
+    @ApiResponse(responseCode = "201" , description = "Equipamento Cadastrado com Sucesso")
+    @ApiResponse(responseCode = "403", description = "Usuario nao Cadastrado")
 	public Equipamento cadastroEquipamento(@RequestBody Equipamento cadastroEquipamento) {
 		Equipamento equipamentoSalvo = equipamentoService.save(cadastroEquipamento);
 		return equipamentoSalvo;
 	}
 	
 	@DeleteMapping("/{id}")
+    @Operation (summary = "Deletar Dados dos Equipamento", description = "Metodo para Deletar Equipamentos")
+    @ApiResponse(responseCode = "204" , description = "Equipamento Deletado com Sucesso")
+    @ApiResponse(responseCode = "404", description = "Equipamento Não Encontrado ou Inexistente")
+    @ApiResponse(responseCode = "403", description = "Usuario nao Cadastrado")
 	public ResponseEntity<Equipamento> deletarEquipamento(@PathVariable Long id){
 		equipamentoService.deleteById(id);
 		

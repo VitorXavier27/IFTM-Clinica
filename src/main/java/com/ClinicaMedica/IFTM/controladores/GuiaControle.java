@@ -4,6 +4,9 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +32,7 @@ import com.ClinicaMedica.IFTM.service.GuiaService;
 @RestController
 @CrossOrigin (origins = "http://localhost:5137")
 @RequestMapping(value = "/guia")
+@Tag(name = "Guia" , description = "Controlador para salvar e editar dados dos Guia!")
 public class GuiaControle {
 
 	@Autowired
@@ -42,6 +46,9 @@ public class GuiaControle {
 	
 	@CrossOrigin(origins = "*" , allowedHeaders = "*")
 	@GetMapping
+    @Operation(summary = "Busca os Guia salvos paginados em 10", description = "Metodo para buscar todos os Guias")
+    @ApiResponse(responseCode = "200" , description = "Guia Buscado com sucesso")
+    @ApiResponse(responseCode = "403", description = "Usuario nao Cadastrado")
 	public ResponseEntity<Page<GuiaDTO>> findAll(@PageableDefault(size = 10) Pageable pageable) {
         Page<GuiaDTO> dto = guiaService.findAll(pageable);
         return ResponseEntity.ok(dto);
@@ -56,6 +63,9 @@ public class GuiaControle {
 	
 	@CrossOrigin(origins = "*" , allowedHeaders = "*")
 	@PostMapping
+    @Operation (summary = "Fazer o Cadastro dos Guia", description = "Metodo para Cadastrar Guias")
+    @ApiResponse(responseCode = "201" , description = "Guia Cadastrado com Sucesso")
+    @ApiResponse(responseCode = "403", description = "Usuario nao Cadastrado")
 	public ResponseEntity<?> criarGuia(@RequestBody GuiaDTO guiaDTO){
 		Optional<Paciente> pacienteOptional = pacienteRepository.findById(guiaDTO.getPacienteId());
 		
@@ -79,6 +89,10 @@ public class GuiaControle {
 	
 	@CrossOrigin(origins = "*" , allowedHeaders = "*")
 	@DeleteMapping("/{id}")
+    @Operation (summary = "Deletar Dados dos Guias", description = "Metodo para Deletar Guias")
+    @ApiResponse(responseCode = "204" , description = "Guias Deletado com Sucesso")
+    @ApiResponse(responseCode = "404", description = "Guias Não Encontrado ou Inexistente")
+    @ApiResponse(responseCode = "403", description = "Usuario nao Cadastrado")
 		public ResponseEntity<Guia> deletarGuia(@PathVariable Long id){
 			guiaService.deletarGuia(id);
 			
