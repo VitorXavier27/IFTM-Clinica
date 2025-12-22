@@ -3,6 +3,7 @@ package com.ClinicaMedica.IFTM.user;
 public enum UserRole {
 
     ADMIN("admin"),
+    
 
     USER("user");
 
